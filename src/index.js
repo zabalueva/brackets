@@ -12,6 +12,9 @@ module.exports = function check(str, bracketsConfig) {
 		}
 		if (str.length !== 2) {
 			workLength = str.length - 2
+        }
+        if (bracketsConfigAllList.indexOf(str[str.length - 1]) % 2 == 0 && (bracketsConfigAllList[bracketsConfigAllList.indexOf(str[str.length - 1])]) !== bracketsConfigAllList[bracketsConfigAllList.indexOf(str[str.length - 1]) + 1]) {
+			return result;
 		}
 
 		/* console.log(str);
