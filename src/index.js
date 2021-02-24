@@ -1,62 +1,37 @@
 module.exports = function check(str, bracketsConfig) {
-    let result = false;
+
 	let bracketsConfigAll = [];
 	let bracketsConfigAllList = [];
-	let find;
-	let workLength = str.length;
+	let strArr = Array.from(str);
 
 	if (str.length % 2 == 0) {
 		for (let i = 0; i < bracketsConfig.length; i++) {
 			bracketsConfigAll[i] = bracketsConfig[i];
 			bracketsConfigAllList = bracketsConfigAll.toString().split(",");
 		}
-		if (str.length !== 2) {
-			workLength = str.length - 2
-        }
-        if (bracketsConfigAllList.indexOf(str[str.length - 1]) % 2 == 0 && (bracketsConfigAllList[bracketsConfigAllList.indexOf(str[str.length - 1])]) !== bracketsConfigAllList[bracketsConfigAllList.indexOf(str[str.length - 1]) + 1]) {
-			return result;
-		}
-
-		/* console.log(str);
+		/* console.log(strArr);
 		console.log(bracketsConfigAllList); */
 
-		for (let i = 0; i < workLength; i++) {
-			find = bracketsConfigAllList.indexOf(str[i]);
-			/* console.log(find) */
+		for (let j = 0; j < strArr.length; j++) {
 
-			if (bracketsConfigAllList[find + 1]) {
+			for (let i = 0; i < strArr.length - 1; i++) {
+				let index = bracketsConfigAllList.indexOf(strArr[i]);
 
-				if (i % 2 == 0) {
-					for (let j = i + 1; j < str.length; j += 2) {
-
-						if (bracketsConfigAllList[find + 1] == str[j]) {
-							/* console.log(`true on index ${i}${j}`); */
-							result = true;
-							break;
-						} else {
-							/* console.log(`false == 0 on index ${i}${j} !`) */
-							result = false;
-							break;
-						}
-					}
+				if (strArr[i + 1] == bracketsConfigAllList[index + 1] ) {
+					strArr.splice(i, 2);
 				}
 
-				if (i % 2 !== 0) {
-					for (let j =  i + 1; j < str.length; j += 2) {
+				if (strArr.length !== 0) {
+					for (let i = 0; i < strArr.length - 1; i++) {
+						let index = bracketsConfigAllList.indexOf(strArr[i]);
 
-						if (str[j] == bracketsConfigAllList[find + 1]) {
-							/* console.log(`true on index ${i}${j}`) */
-							result = true;
-							break;
-						} else {
-							/* console.log(`false on index ${i}${j}`) */
-							result = false;
-							break;
+						if (strArr[i + 1] == bracketsConfigAllList[index + 1]) {
+							strArr.splice(i, 2);
 						}
 					}
 				}
 			}
 		}
-	}
-	return result;
+		}
+	return strArr.length == 0;
 }
